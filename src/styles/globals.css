@@ -45,3 +45,14 @@ input{
     background: #5DADE2;
     color: white;
 }
+.usersTable{
+  margin-top: 80px ;
+}
+.logo{
+  font-weight: bold;
+}
+.actions{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
