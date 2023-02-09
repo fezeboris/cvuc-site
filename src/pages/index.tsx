@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import Head from "next/head";
+import Filter from "@/Componenents/Filter";
 
 export default function Home() {
 
@@ -28,6 +29,10 @@ export default function Home() {
       <div className="addUser btn btn-lg btn-outline-dark">+Add User</div>
      </nav>
      </main>
+
+
+     <Filter/>
+
     </>
   );
 }

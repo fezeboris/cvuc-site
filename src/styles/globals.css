@@ -45,3 +45,17 @@ input{
     background: #5DADE2;
     color: white;
 }
+.filter{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5%;
+}
+.filter__items1{
+  display: flex;
+  align-items: center;
+}
+.filter__items2{
+  display: flex;
+  align-items: center;
+}
+
