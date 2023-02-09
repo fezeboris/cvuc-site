@@ -1,14 +1,15 @@
 import Image from "next/image";
 import Head from "next/head";
-import { log } from "console";
+
+import Link from "next/link";
 import type { GetServerSideProps } from "next";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-enum GENDER {
-  M,
-  F,
-}
+// enum GENDER {
+//   M,
+//   F,
+// }
 // interface  UserInfo{
 //   id:number,
 //   firstname:string,
@@ -46,8 +47,15 @@ export default function Home({ users }: IndexPageProps) {
       </Head>
       <main>
         <nav className="homeNav bg-info">
-          <div className="logo h4 fw-bold">Interface d'administration</div>
-          <div className="addUser btn btn-lg btn-outline-dark">+Add User</div>
+          <div className="logo h3 fw-bold">Interface d'administration</div>
+          <div>
+            <Link
+              href="register/register"
+              className="addUser btn btn-lg btn-outline-dark"
+            >
+              +Add User
+            </Link>
+          </div>
         </nav>
 
         <div className="container-fluid">
@@ -65,10 +73,8 @@ export default function Home({ users }: IndexPageProps) {
             </thead>
             <tbody>
               {users.map(({ id, name, username, email }) => (
-                <tr>
-                  <th key={id} scope="row">
-                    {id}
-                  </th>
+                <tr key={id}>
+                  <th scope="row">{id}</th>
                   <td>{username}</td>
                   <td>{name}</td>
                   <td>{username}</td>
@@ -84,7 +90,7 @@ export default function Home({ users }: IndexPageProps) {
                         edit
                       </button>
                       <button type="button" className="btn btn-outline-primary">
-                        details
+                        <Link href={`/${id}`}>details</Link>
                       </button>
                       <button type="button" className="btn btn-outline-primary">
                         delete

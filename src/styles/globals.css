@@ -5,12 +5,28 @@
   padding: 0;
   margin: 0;
 }
-
+::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: black;
+  border-radius: 10px;
+  border: solid #6d6d6d 10px;
+}
+::-webkit-scrollbar-track {
+  /* margin-top: 45px; */
+  background-color: #ebebeb;
+  border-radius: 10px;
+  width: 6px;
+}
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
 }
+
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -43,7 +59,7 @@ input{
     align-items: center;
     padding: 10px 80px;
     background: #5DADE2;
-    color: white;
+    color: #424949;
 }
 .usersTable{
   margin-top: 80px ;
@@ -55,4 +71,47 @@ input{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.register-form{
+  background: #D0D3D4;
+  padding: 15px ;
+  border-radius: 10px;
+}
+.formInputs{
+  display: flex;
+  align-items: center;
+  
+  
+}
+.radio-container{
+  /* border: 1px solid red; */
+  /* margin-top: 20px; */
+  padding: 5pxpx 3px;
+  display: block;
+  /* height: 45px; */
+}
+.usernameGenderLabel{
+  display: flex;
+  /* justify-content: space-between; */
+}
+.usernameGenderLabel label{
+  width: 230px !important;
+  margin-right: 20px;
+  
+}
+.formInputs div{
+  margin-right: 10px;
+}
+.usernameInput{
+  /* border:1px solid red !important; */
+  width: 230px !important;
+}
+.radioLabel{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.submitBtnContainer{
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
 }

@@ -1,26 +1,43 @@
 import Head from "next/head";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import Link from "next/link";
 
+enum GENDER {
+  M = "male",
+  F = "female",
+}
 type UserSubmitForm = {
-  fullname: string;
+  firstname: string;
+  lastname: string;
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
-  acceptTerms: boolean;
+  phone: number;
+  whatNumber: number;
+  function: string;
+  gender: GENDER;
+  active: boolean;
 };
 
 export default function Home() {
   const validationSchema = Yup.object().shape({
-    fullname: Yup.string().required("Fullname is required"),
+    firstname: Yup.string().required("First name is required"),
+    lastname: Yup.string().required("Last name is required"),
+    phone: Yup.number()
+      .required("Phone number is required")
+      .typeError("Enter your phone number"),
+    whatNumber: Yup.number().typeError("Enter your what'sApp number"),
     username: Yup.string()
       .required("Username is required")
       .min(6, "Username must be at least 6 characters")
       .max(20, "Username must not exceed 20 characters"),
     email: Yup.string().required("Email is required").email("Email is invalid"),
+    function: Yup.string().required(),
     password: Yup.string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters")
@@ -28,7 +45,6 @@ export default function Home() {
     confirmPassword: Yup.string()
       .required("Confirm Password is required")
       .oneOf([Yup.ref("password"), null], "Confirm Password does not match"),
-    acceptTerms: Yup.bool().oneOf([true], "Accept Terms is required"),
   });
   const {
     register,
@@ -55,33 +71,160 @@ export default function Home() {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <nav className="homeNav bg-info">
+        <div className="logo h4 fw-bold ">
+          Enregistrement des nouveaux utilisateurs
+        </div>
+        <div>
+          <Link href="/" className="addUser btn btn-lg btn-outline-dark">
+            retour
+          </Link>
+        </div>
+      </nav>
       <main>
-        <div className="register-form" style={{width:'480px', margin:'60px auto'}}>
+        <div
+          className="register-form "
+          style={{ width: "510px", margin: "30px auto" }}
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-              <label>Full Name</label>
-              <input
-                type="text"
-                {...register("fullname")}
-                className={`form-control ${
-                  errors.fullname ? "is-invalid" : ""
-                }`}
-              />
-              <div className="invalid-feedback">{errors.fullname?.message}</div>
+            <div className="formInputs">
+              <div className="form-group">
+                <label>First Name</label>
+                <input
+                  type="text"
+                  {...register("firstname")}
+                  className={`form-control ${
+                    errors.firstname ? "is-invalid" : ""
+                  }`}
+                />
+                <div className="invalid-feedback">
+                  {errors.firstname?.message}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Last name</label>
+                <input
+                  type="text"
+                  {...register("lastname")}
+                  className={`form-control ${
+                    errors.lastname ? "is-invalid" : ""
+                  }`}
+                />
+                <div className="invalid-feedback">
+                  {errors.lastname?.message}
+                </div>
+              </div>
             </div>
 
-            <div className="form-group">
+            <div className="formInputs">
+              <div className="form-group">
+                <label>Phone</label>
+                <input
+                  type="number"
+                  {...register("phone")}
+                  className={`form-control ${errors.phone ? "is-invalid" : ""}`}
+                />
+                <div className="invalid-feedback">{errors.phone?.message}</div>
+              </div>
+
+              <div className="form-group">
+                <label>What'sApp Number</label>
+                <input
+                  type="number"
+                  {...register("whatNumber")}
+                  className={`form-control ${
+                    errors.whatNumber ? "is-invalid" : ""
+                  }`}
+                />
+
+                <div className="invalid-feedback">
+                  {errors.whatNumber?.message}
+                </div>
+              </div>
+            </div>
+            <div className="formInputs">
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  {...register("password")}
+                  className={`form-control ${
+                    errors.password ? "is-invalid" : ""
+                  }`}
+                />
+                <div className="invalid-feedback">
+                  {errors.password?.message}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <input
+                  type="password"
+                  {...register("confirmPassword")}
+                  className={`form-control ${
+                    errors.confirmPassword ? "is-invalid" : ""
+                  }`}
+                />
+                <div className="invalid-feedback">
+                  {errors.confirmPassword?.message}
+                </div>
+              </div>
+            </div>
+            <div className="usernameGenderLabel">
               <label>Username</label>
-              <input
-                type="text"
-                {...register("username")}
-                className={`form-control ${
-                  errors.username ? "is-invalid" : ""
-                }`}
-              />
-              <div className="invalid-feedback">{errors.username?.message}</div>
+              <label>Gender</label>
             </div>
+            <div className="formInputs">
+              <div className="form-group">
+                <input
+                  type="text"
+                  {...register("username")}
+                  className={`form-control usernameInput ${
+                    errors.username ? "is-invalid" : ""
+                  }`}
+                />
+                <div className="invalid-feedback">
+                  {errors.username?.message}
+                </div>
+              </div>
 
+              <div className="radio-container">
+                {/* <label>Gender</label> */}
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="inlineRadio1"
+                    value="option1"
+                  />
+                  <label
+                    className="form-check-label radioLabel"
+                    htmlFor="inlineRadio1"
+                  >
+                    Male
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="inlineRadio2"
+                    value="option2"
+                  />
+                  <label
+                    className="form-check-label radioLabel"
+                    htmlFor="inlineRadio2"
+                  >
+                    Female
+                  </label>
+                </div>
+                <div className="invalid-feedback">{errors.gender?.message}</div>
+              </div>
+            </div>
             <div className="form-group">
               <label>Email</label>
               <input
@@ -91,62 +234,31 @@ export default function Home() {
               />
               <div className="invalid-feedback">{errors.email?.message}</div>
             </div>
-
             <div className="form-group">
-              <label>Password</label>
+              <label>Function</label>
               <input
-                type="password"
-                {...register("password")}
+                type="text"
+                {...register("function")}
                 className={`form-control ${
-                  errors.password ? "is-invalid" : ""
+                  errors.function ? "is-invalid" : ""
                 }`}
               />
-              <div className="invalid-feedback">{errors.password?.message}</div>
+              <div className="invalid-feedback">{errors.function?.message}</div>
             </div>
-            <div className="form-group">
-              <label>Confirm Password</label>
-              <input
-                type="password"
-                {...register("confirmPassword")}
-                className={`form-control ${
-                  errors.confirmPassword ? "is-invalid" : ""
-                }`}
-              />
-              <div className="invalid-feedback">
-                {errors.confirmPassword?.message}
-              </div>
-            </div>
-
-            <div className="form-group form-check">
-              <input
-                type="checkbox"
-                {...register("acceptTerms")}
-                className={`form-check-input ${
-                  errors.acceptTerms ? "is-invalid" : ""
-                }`}
-              />
-              <label htmlFor="acceptTerms" className="form-check-label">
-                I have read and agree to the Terms
-              </label>
-              <div className="invalid-feedback">
-                {errors.acceptTerms?.message}
-              </div>
-            </div>
-
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">
+            <div className="submitBtnContainer">
+              <button type="submit" className="btn btn-primary btn-md">
                 Register
-              </button>
-              <button
-                type="button"
-                onClick={() => reset()}
-                className="btn btn-warning float-right"
-              >
-                Reset
               </button>
             </div>
           </form>
         </div>
+        {/* <button
+          type="button"
+          onClick={() => reset()}
+          className="btn btn-warning float-right"
+        >
+          Reset
+        </button> */}
       </main>
     </>
   );
