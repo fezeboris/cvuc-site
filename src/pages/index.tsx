@@ -89,9 +89,11 @@ export default function Home({ users }: IndexPageProps) {
                       <button type="button" className="btn btn-outline-primary">
                         edit
                       </button>
-                      <button type="button" className="btn btn-outline-primary">
-                        <Link href={`/${id}`}>details</Link>
-                      </button>
+                      {/* <button type="button" > */}
+                      <Link href={`/${id}`} className="btn btn-outline-primary">
+                        details
+                      </Link>
+                      {/* </button> */}
                       <button type="button" className="btn btn-outline-primary">
                         delete
                       </button>

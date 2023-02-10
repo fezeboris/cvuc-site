@@ -1,4 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Link from "next/link";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import React from "react";
 
@@ -26,7 +28,57 @@ const UserDetails: NextPage<Props> = ({
   // adress,
 }) => {
   console.log("===========", name, email);
-  return <div> UserDetails</div>;
+  return (
+    <>
+      <nav className="homeNav bg-info">
+        <div className="logo h3 fw-bold">Details de l'utilisateur </div>
+        <div>
+          <Link href="/" className="addUser btn btn-lg btn-outline-dark">
+            retour
+          </Link>
+        </div>
+      </nav>
+      <div
+        className="container"
+        style={{
+          width: "35rem",
+          marginTop: "5rem",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          className="card"
+          style={{
+            width: "35rem",
+          }}
+        >
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <label style={{ fontWeight: "bold" }}>First Name</label>
+              <p>{name}</p>
+            </li>
+            <li className="list-group-item">
+              <label style={{ fontWeight: "bold" }}>Username</label>
+              <p>{username}</p>
+            </li>
+            <li className="list-group-item">
+              <label style={{ fontWeight: "bold" }}>Email </label>
+              <p>{email}</p>
+            </li>
+            <li className="list-group-item">
+              <label style={{ fontWeight: "bold" }}>Phone </label>
+              <p>{phone}</p>
+            </li>
+            <li className="list-group-item">
+              <label style={{ fontWeight: "bold" }}>Website </label>
+              <p>{website}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default UserDetails;
